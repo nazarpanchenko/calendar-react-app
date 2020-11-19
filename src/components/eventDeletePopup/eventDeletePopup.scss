@@ -1,0 +1,26 @@
+.popup {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 5px 10px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    background-color: #fff;
+    
+    &__delete-btn {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: none;
+    }
+
+    .fa-trash {
+        margin-right: 10px;
+        color: #000;
+    }
+}

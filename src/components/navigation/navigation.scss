@@ -1,0 +1,32 @@
+.calendar {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
+
+    &__header {
+        display: flex;
+        height: 100px;
+        padding-left: 48px;
+    }
+
+    &__day {
+        position: relative;
+        flex: 1;
+        border-left: 1px solid #eee;
+    }
+}
+
+.day-label__day-name {
+    &.active {
+        color: #0c48b3;
+    }
+}
+
+.day-label__day-number {
+    &.active {
+        padding: 8px;
+        color: #fff;
+        border-radius: 100%;
+        background-color: #0c48b3;
+    }
+}
