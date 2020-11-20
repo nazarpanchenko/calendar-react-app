@@ -30,7 +30,7 @@ class Calendar extends Component {
     }
 
     onEventCreate = event => {
-        if (eventNotExists(event)) {
+        if (eventNotExists(event, this.state.events)) {
             createEvent(event).then(() => this.fetchEvents());
         }
     }

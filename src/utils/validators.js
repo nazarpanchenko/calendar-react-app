@@ -1,5 +1,4 @@
 import moment from "moment";
-import { getEventsList } from '../gateway/events.js';
 
 export const allInputsValid = event => {
     const { title, dateFrom, dateTo } = event;
@@ -30,25 +29,31 @@ export const allInputsValid = event => {
     return true;
 };
 
-export const eventNotExists = event => {
-    const { dateFrom, dateTo } = event;
+export const fetchEvents = () => {
+    
+}
+
+export const eventNotExists = (event, eventsList) => {
+    let notExists = true;
 
     // convert to correct format before comparison
-    const start = new Date(dateFrom).getTime(),
-        end = new Date(dateTo).getTime();
+    const newEventStart = new Date(event.dateFrom).getTime(),
+        newEventEnd = new Date(event.dateTo).getTime();
 
-    let exists;
-
-    getEventsList().then(events => events.map(e => {
-        if (start === new Date(e.dateFrom).getTime() && end === new Date(e.dateTo).getTime()) {
-            alert('Event is already planned on this date. Please, choose another date');
-            exists = true;
-        } else {
-            exists = false;
+    for (let i = 0; i < eventsList.length; i++) {
+        const oldEventStart = new Date(eventsList[i].dateFrom).getTime(),
+            oldEventEnd = new Date(eventsList[i].dateTo).getTime();
+    
+        if ( (newEventStart === oldEventStart || newEventEnd === oldEventEnd) || 
+            (newEventStart <= oldEventStart && newEventStart >= oldEventEnd) ||
+            (newEventStart <= oldEventEnd && newEventEnd >= oldEventStart) ) {
+                alert('Event is already planned on this date. Please, choose another date');
+                notExists = false;
+                break;
         }
-    }));
+    }
 
-    return exists;
+    return notExists;
 };
 
 export const canDeleteEvent = event => {
