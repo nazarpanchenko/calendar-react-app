@@ -37,19 +37,17 @@ export const eventNotExists = (event, eventsList) => {
     let notExists = true;
 
     // convert to correct format before comparison
-    const newEventStart = new Date(event.dateFrom).getTime(),
-        newEventEnd = new Date(event.dateTo).getTime();
+    const newStart = new Date(event.dateFrom).getTime(),
+        newEnd = new Date(event.dateTo).getTime();
 
     for (let i = 0; i < eventsList.length; i++) {
-        const oldEventStart = new Date(eventsList[i].dateFrom).getTime(),
-            oldEventEnd = new Date(eventsList[i].dateTo).getTime();
+        const oldStart = new Date(eventsList[i].dateFrom).getTime(),
+            oldEnd = new Date(eventsList[i].dateTo).getTime();
     
-        if ( (newEventStart === oldEventStart || newEventEnd === oldEventEnd) || 
-            (newEventStart <= oldEventStart && newEventStart >= oldEventEnd) ||
-            (newEventStart <= oldEventEnd && newEventEnd >= oldEventStart) ) {
-                alert('Event is already planned on this date. Please, choose another date');
-                notExists = false;
-                break;
+        if (newStart >= oldStart || newStart >= oldEnd) {
+            alert('Event is already planned on this date. Please, choose another date');
+            notExists = false;
+            break;
         }
     }
 
