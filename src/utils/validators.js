@@ -14,7 +14,7 @@ export const allInputsValid = event => {
 
     const validators = {
         titleNotEmpty : title !== '',
-        isInRange: start > dayStart && end < dayEnd,
+        isInRange: start >= dayStart && end <= dayEnd,
         startNotSame: !(moment(start).isSame(end)) && !(moment(end).isSameOrBefore(start)),
         isDurationValid: moment(end).diff(moment(start), 'hours') <= 6,
         
