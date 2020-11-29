@@ -62,7 +62,6 @@ class Modal extends Component {
         };
 
         this.props.onEventCreate(newEvent);
-        this.clearForm();
     }
 
     render() {
