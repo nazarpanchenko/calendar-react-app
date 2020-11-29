@@ -29,10 +29,6 @@ export const allInputsValid = event => {
     return true;
 };
 
-export const fetchEvents = () => {
-    
-}
-
 export const eventNotExists = (event, eventsList) => {
     let notExists = true;
 
@@ -44,7 +40,8 @@ export const eventNotExists = (event, eventsList) => {
         const oldStart = new Date(eventsList[i].dateFrom).getTime(),
             oldEnd = new Date(eventsList[i].dateTo).getTime();
     
-        if (newStart >= oldStart || newStart >= oldEnd) {
+        if ((newStart >= oldStart && newStart <= oldEnd) || 
+            (newStart <= oldEnd && newStart >= oldStart)) {
             alert('Event is already planned on this date. Please, choose another date');
             notExists = false;
             break;
