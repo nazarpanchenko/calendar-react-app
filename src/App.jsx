@@ -5,10 +5,9 @@ import Calendar from './components/calendar/Calendar.jsx';
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
 import './common.scss';
-import moment from "moment";
+import moment from 'moment';
 
 class App extends Component {
-
     state = {
         weekStartDate: new Date(),
         isModalOpen: false
@@ -18,54 +17,58 @@ class App extends Component {
         this.setState({
             weekStartDate: new Date()
         });
-    }
+    };
 
     setPreviousWeek = () => {
         this.setState({
             weekStartDate: moment(this.state.weekStartDate)
-                .subtract(7, 'days').toDate()
+                .subtract(7, 'days')
+                .toDate()
         });
-    }
+    };
 
     setNextWeek = () => {
         this.setState({
             weekStartDate: moment(this.state.weekStartDate)
-                .add(7, 'days').toDate()
+                .add(7, 'days')
+                .toDate()
         });
-    }
+    };
 
     openEventWindow = () => {
         this.setState({
-            isModalOpen : true
+            isModalOpen: true
         });
-    }
+    };
 
     closeEventWindow = () => {
         this.setState({
-            isModalOpen : false
+            isModalOpen: false
         });
-    }
+    };
 
     render() {
         const { weekStartDate, isModalOpen } = this.state;
         const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
-        return (<>
-            <Header 
-                openEventWindow={this.openEventWindow}
-                setCurrentWeek={this.setCurrentWeek}
-                setPreviousWeek={this.setPreviousWeek} 
-                setNextWeek={this.setNextWeek}
-                weekStartDate={weekStartDate}
-            />
-            <Calendar 
-                weekDates={weekDates}
-                isModalOpen={isModalOpen}
-                closeEventWindow={this.closeEventWindow}
-                weekStartDate={weekStartDate}
-            />
-        </>)
+        return (
+            <>
+                <Header
+                    openEventWindow={this.openEventWindow}
+                    setCurrentWeek={this.setCurrentWeek}
+                    setPreviousWeek={this.setPreviousWeek}
+                    setNextWeek={this.setNextWeek}
+                    weekStartDate={weekStartDate}
+                />
+                <Calendar
+                    weekDates={weekDates}
+                    isModalOpen={isModalOpen}
+                    closeEventWindow={this.closeEventWindow}
+                    weekStartDate={weekStartDate}
+                />
+            </>
+        );
     }
-};
+}
 
 export default App;
