@@ -1,4 +1,5 @@
 import moment from "moment";
+import { getEventsList } from '../gateway/events';
 
 export const allInputsValid = event => {
     const { title, dateFrom, dateTo } = event;
@@ -29,24 +30,27 @@ export const allInputsValid = event => {
     return true;
 };
 
-export const eventNotExists = (event, eventsList) => {
+export const eventNotExists = event => {
+    const targetEvent = event;
     let notExists = true;
 
-    // convert to correct format before comparison
-    const newStart = new Date(event.dateFrom).getTime(),
-        newEnd = new Date(event.dateTo).getTime();
+    getEventsList().then(eventsList => {
+        // convert to correct format before comparison
+        const newStart = new Date(targetEvent.dateFrom).getTime(),
+            newEnd = new Date(targetEvent.dateTo).getTime();
 
-    for (let i = 0; i < eventsList.length; i++) {
-        const oldStart = new Date(eventsList[i].dateFrom).getTime(),
-            oldEnd = new Date(eventsList[i].dateTo).getTime();
-    
-        if ((newStart >= oldStart && newStart <= oldEnd) || 
-            (newStart <= oldEnd && newStart >= oldStart)) {
-            alert('Event is already planned on this date. Please, choose another date');
-            notExists = false;
-            break;
-        }
-    }
+        const foundEvent = eventsList.filter(event => {
+            const oldStart = new Date(event.dateFrom).getTime(),
+                oldEnd = new Date(event.dateTo).getTime();
+
+            return (newStart >= oldStart && newStart <= oldEnd) || 
+                (newStart <= oldEnd && newStart >= oldStart);
+        });
+
+        return foundEvent.length 
+            ? alert('Event is already planned on this date. Please, choose another date')
+            : notExists = false;
+    });
 
     return notExists;
 };

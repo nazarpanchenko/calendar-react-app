@@ -1,15 +1,5 @@
 const baseUrl = 'https://5f4107e4a5e9db0016302376.mockapi.io/api/v1/eventsList';
 
-const events = [];
-
-export const event = {
-    title: '',
-    description : '',
-    date: new Date(),
-    startTime: '00:00',
-    endTime: '00:00'
-};
-
 export const getEventsList = () => {
     return fetch(baseUrl)
         .then(response => {
@@ -46,4 +36,3 @@ export const deleteEvent = eventId => {
     });
 }
 
-export default events;
